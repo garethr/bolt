@@ -1,0 +1,54 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bolt</title>
+    
+    <link rel="stylesheet" type="text/css" href="assets/css/font-reset.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+
+    <script src="assets/js/jquery.min.js"></script>
+    
+    <script>
+      $(document).ready(function(){
+ 
+        $('body').append('<div id="online">Online</div>');
+
+        ws = new WebSocket("ws://localhost:8080/");
+        ws.onmessage = function(evt) { $("#msg").append("<pre>"+evt.data+"</pre>"); };
+        ws.onclose = function() {
+          $("#online").hide();
+          $("#offline").show();
+        };
+        ws.onopen = function() {
+          $("#online").show();
+          $("#offline").hide();
+        };
+
+        $('input#submit').click(function() {
+          ws.send($('input#message').val());
+          return false;
+        })
+
+      });
+    </script>
+  </head>
+  <body>
+    <div id="main">
+      <h1>Bolt</h1>
+      <p>Run the command associated with this application and display the results as they happen</p>
+      <form>
+        <input type="submit" id="submit" value="Run">
+      </form>
+    </div>
+
+    <div id="msg"></div>
+  
+    <div id="footer">
+      <p>Uses WebSockets and currently only works in modern browsers. But it's a pretty geeky tool for developers so I'm fine with that. <a href="http://github.com/garethr/webrunner/">Source code on GitHub</a></p>
+    </div>
+    
+    <div id="offline">Offline</div>
+       
+  </body>
+</html>

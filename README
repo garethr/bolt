@@ -1,0 +1,70 @@
+Bolt is a very simple tool for when you have a shell script that you would like
+to be able to run from a web browser.
+
+Details
+=======
+
+You might be thinking, isn't running a operating system command from a web page easy?
+and you'd be right in thinking that it is. Presumably all programming languages
+will let you do this with some OS standard library tool or another. But that's
+only part of my requirement. My main secondary requirement is that I want to see
+the output of the script as it happens, as if I was running it in a terminal.
+
+This tool is something of a spinout of a bigger something I'm working on. I'm quite
+likely to make this code better but less likely to add new features.
+
+
+Implementation
+==============
+
+It's written as an EventMachine websocket server on the backend with a simple HTML
+interface. All the communication between client and server is done using websockets,
+so this will only work for supported modern browsers.
+
+The command you acually want to run is currently stored in the included exec.sh shell
+script. This has a very simple example that should run in most places just to get 
+started with.
+
+You'll need a few dependencies:
+
+gem install eventmachine
+gem install em-websocket-server
+
+To run the server simple execute:
+
+./server.rb
+
+
+Improvements
+============
+
+I'll be writing some tests once I get my head round how to do so in EventMachine. I'll
+also get bundler or similar setup so you don't have to manually install gems. More
+importantly I'll abstract out some of the bits like the host and port on which the server
+runs and more importantly the script or command to try and execute. 
+
+
+Licence
+=======
+
+The MIT License
+ 
+Copyright (c) 2009 Gareth Rushgrove
+ 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+ 
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+ 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
